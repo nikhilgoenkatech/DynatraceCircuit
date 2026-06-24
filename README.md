@@ -26,24 +26,10 @@ The distribution package contains a pre-built app. You do not need to compile an
 **1.1** Unzip the distribution package:
 
 ```bash
-unzip adoptionday-v1.x.x.zip
-cd adoptionday
-```
-
-**1.2** Open `app.config.json` and set your Dynatrace environment URL:
-
-```json
-{
-  "environmentUrl": "https://YOUR_ENV_ID.apps.dynatrace.com"
-}
-```
-
-> Your environment ID is the string before `.apps.dynatrace.com` in your Dynatrace browser URL — no trailing slash.
-
-**1.3** Deploy to your Dynatrace environment:
-
-```bash
-npx dt-app deploy --skip-build
+   1. unzip dynatrace-circuit.zip
+   2. cd dynatrace-circuit
+   3. npm install
+   4. npx dt-app deploy --skip-build --environment-url https://<tenant>.apps.dynatrace.com
 ```
 
 The CLI will prompt you to authenticate via browser the first time. Once deployed, the app appears under **Apps** in your Dynatrace menu as **Dynatrace Circuit**.

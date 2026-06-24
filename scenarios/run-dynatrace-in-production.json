@@ -1,0 +1,277 @@
+{
+  "templateVersion": "1.0.0",
+  "id": "run-dynatrace-in-production",
+  "category": "SL",
+  "order": 3,
+  "title": "Lap 3 \u2014 Dynatrace in Production",
+  "description": "Full throttle. Lo.",
+  "difficulty": "advanced",
+  "estimatedTime": 6,
+  "totalTimeLimit": 600,
+  "imagine": "You are now the go-to Dynatrace expert on your team. Time to showcase you can investigate a problem in Dynatrace.",
+  "yourGoal": "Complete 6 questions covering Problem analysis. These are the skills that separate Dynatrace power users from everyone else.",
+  "tools": "Dynatrace Perform \u00b7 Dynatrace Intelligence \u00b7 Workflows \u00b7 Dashboards",
+  "note": "These questions simulate an on-call incident investigation using a real Dynatrace Problem card. You are expected to quickly assess blast radius, trust Davis AI\u2019s entity-level root cause, understand why baselines triggered an anomaly, and use Explain Problem to align investigation and communication. The goal is speed with confidence.",
+  "story": {
+    "introduction": "You have crawled, you have walked \u2014 now you run. This scenario covers the advanced capabilities that make Dynatrace a platform, not just a monitoring tool.",
+    "context": "From DQL-powered log queries to automated remediation workflows, this is where Dynatrace transforms from a tool you use into a platform your organisation depends on."
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "timeLimit": 60,
+      "title": "Problem impact summary",
+      "content": "From the Dynatrace problem card, which combination correctly summarises the observed impact during the problem?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Approximately 1.6K users, 1.59K sessions, and 3 events",
+          "isCorrect": true,
+          "explanation": "Correct. The problem card shows ~1.6K impacted users, ~1.59K sessions, and 3 correlated events."
+        },
+        {
+          "id": "b",
+          "text": "Approximately 2.59K users, 1.6K sessions, and 1 event",
+          "isCorrect": false,
+          "explanation": "Users and sessions are reversed, and the event count is incorrect."
+        },
+        {
+          "id": "c",
+          "text": "50 users, 123 sessions, and 103 events",
+          "isCorrect": false,
+          "explanation": "These values correspond to baseline and metric values, not impact statistics."
+        },
+        {
+          "id": "d",
+          "text": "Impact details cannot be determined from the problem card",
+          "isCorrect": false,
+          "explanation": "The impact section of the problem card explicitly shows users, sessions, and event count."
+        }
+      ],
+      "correctAnswer": "a",
+      "explanation": "The impact tiles on the problem card provide a quick summary of blast radius before deeper analysis.",
+      "points": 150,
+      "hints": [
+        "Look at the impact tiles at the top of the problem card for the details."
+      ],
+      "actionButtons": [
+        {
+          "label": "Open Problems App",
+          "url": "https://vpk89018.apps.dynatrace.com/ui/apps/dynatrace.davis.problems/problem/1482507569717661005_1778479740000V2?from=now%28%29-24h&to=now%28%29&filters=Impact+in+%28Application%29",
+          "variant": "emphasized",
+          "color": "primary"
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "title": "Root cause identification",
+      "content": "In the same problem, what application was identified by Davis AI as the root cause of the problem?",
+      "timeLimit": 45,
+      "options": [
+        {
+          "id": "a",
+          "text": "The 'Application low traffic' event",
+          "isCorrect": false,
+          "explanation": "This is an informational event, not an entity root cause."
+        },
+        {
+          "id": "b",
+          "text": "The 'Request error rate increase' anomaly",
+          "isCorrect": false,
+          "explanation": "This describes the symptom, not the underlying root cause entity."
+        },
+        {
+          "id": "c",
+          "text": "The web application DXP AAMI PERF2",
+          "isCorrect": true,
+          "explanation": "Correct. The problem card explicitly labels DXP AAMI PERF2 as the root cause entity."
+        },
+        {
+          "id": "d",
+          "text": "A backend service dependency",
+          "isCorrect": false,
+          "explanation": "No service was shown as the root cause for this problem."
+        }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Dynatrace always assigns root cause to an entity (application, service, host), not just an event or metric.",
+      "points": 150,
+      "actionButtons": [
+        {
+          "label": "Open Problems App",
+          "url": "https://vpk89018.apps.dynatrace.com/ui/apps/dynatrace.davis.problems/problem/1482507569717661005_1778479740000V2?from=now%28%29-24h&to=now%28%29&filters=Impact+in+%28Application%29",
+          "variant": "emphasized",
+          "color": "primary"
+        }
+      ],
+      "hints": [
+        "Focus on which entity is explicitly labelled as the root causem, it would be default appear on the right side of the problem."
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "title": "Baseline-driven anomaly detection",
+      "content": "Why was the 'Request error rate increase' problem opened?",
+      "url": "https://vpk89018.apps.dynatrace.com/ui/apps/dynatrace.davis.problems/problem/1482507569717661005_1778479740000V2?from=now%28%29-24h&to=now%28%29&filters=Impact+in+%28Application%29",
+      "timeLimit": 60,
+      "options": [
+        {
+          "id": "a",
+          "text": "The error rate crossed a manually configured static threshold",
+          "isCorrect": false,
+          "explanation": "This problem was detected using automatic baselining, not static thresholds."
+        },
+        {
+          "id": "b",
+          "text": "The current error rate value of 123 exceeded the auto-baseline of 103.18",
+          "isCorrect": true,
+          "explanation": "Correct. Dynatrace detected an anomaly because the observed value was above the learned baseline."
+        },
+        {
+          "id": "c",
+          "text": "The request volume dropped below 50 requests per minute",
+          "isCorrect": false,
+          "explanation": "This explains the low traffic event, not the error rate increase."
+        },
+        {
+          "id": "d",
+          "text": "A deployment event automatically opened the problem",
+          "isCorrect": false,
+          "explanation": "Deployments alone do not open problems unless they cause observable impact."
+        }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Dynatrace compares live values against dynamic baselines learned from historical behaviour to detect anomalies.",
+      "points": 150,
+      "actionButtons": [
+        {
+          "label": "Open Problems App",
+          "url": "https://vpk89018.apps.dynatrace.com/ui/apps/dynatrace.davis.problems/problem/1482507569717661005_1778479740000V2?from=now%28%29-24h&to=now%28%29&filters=Impact+in+%28Application%29",
+          "variant": "emphasized",
+          "color": "primary"
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "title": "Using Explain Problem",
+      "content": "How is the 'Explain problem' feature most useful during investigation?",
+      "timeLimit": 60,
+      "options": [
+        {
+          "id": "a",
+          "text": "It replaces the need to look at metrics, logs, or traces",
+          "isCorrect": false,
+          "explanation": "Explain Problem complements investigation but does not replace detailed analysis."
+        },
+        {
+          "id": "b",
+          "text": "It provides an AI-generated summary explaining what happened, why it happened, and what was impacted",
+          "isCorrect": true,
+          "explanation": "Correct. Explain Problem summarises the situation and guides users toward the most relevant evidence."
+        },
+        {
+          "id": "c",
+          "text": "It automatically remediates the issue",
+          "isCorrect": false,
+          "explanation": "Remediation requires Workflows or manual action, not Explain Problem."
+        },
+        {
+          "id": "d",
+          "text": "It only displays raw event logs",
+          "isCorrect": false,
+          "explanation": "Explain Problem focuses on understanding, not raw data display."
+        }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Explain Problem helps teams align quickly by providing a clear narrative of cause, impact, and evidence \u2014 especially useful during handovers or incident reviews.",
+      "points": 150,
+      "hints": [
+        "Think about how you would quickly brief another engineer on what happened without walking them through every chart."
+      ],
+      "actionButtons": [
+        {
+          "label": "Open Problems App",
+          "url": "https://vpk89018.apps.dynatrace.com/ui/apps/dynatrace.davis.problems/problem/1482507569717661005_1778479740000V2?from=now%28%29-24h&to=now%28%29&filters=Impact+in+%28Application%29",
+          "variant": "emphasized",
+          "color": "primary"
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "title": "Identifying the root cause service for an infrastructure problem.",
+      "content": "Open the above problem card titled 'Unexpected high load'. From this problem, which entity has been identified by Davis AI as the root cause?",
+      "timeLimit": 60,
+      "options": [
+        {
+          "id": "a",
+          "text": "oradb-app-ccm-sys-3 because it shows resource contention",
+          "isCorrect": false,
+          "explanation": "This service is impacted, but it is not marked as the root cause."
+        },
+        {
+          "id": "b",
+          "text": "ccbatch because a deployment changed",
+          "isCorrect": false,
+          "explanation": "The process change is informational and not marked as the root cause."
+        },
+        {
+          "id": "c",
+          "text": "CC Guidewire Batch Message Dispatcher due to unexpected high service load",
+          "isCorrect": true,
+          "explanation": "Correct. This service is explicitly labelled as the root cause with the reason 'Unexpected high service load'."
+        },
+        {
+          "id": "d",
+          "text": "The infrastructure host associated with the batch jobs",
+          "isCorrect": false,
+          "explanation": "Infrastructure is impacted, but the problem root cause is identified at the service level."
+        }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Davis AI identifies CC Guidewire Batch Message Dispatcher as the root cause service, allowing you to focus investigation where the abnormal load originated.",
+      "points": 150,
+      "hints": [
+        "Look for the entity that has a red 'Root cause' label, not just impacted components."
+      ],
+      "actionButtons": [
+        {
+          "label": "Open Problems App",
+          "url": "https://vpk89018.apps.dynatrace.com/ui/apps/dynatrace.davis.problems/problem/-2645110129167886692_1776839340000V2?from=now%28%29-30d&to=now%28%29&filters=ID+%3D+P-260471717",
+          "variant": "emphasized",
+          "color": "primary"
+        }
+      ]
+    }
+  ],
+  "maxScore": 800,
+  "tags": [
+    "advanced",
+    "run",
+    "dql",
+    "security",
+    "slo",
+    "workflows",
+    "log-analysis",
+    "production"
+  ],
+  "learningObjectives": [
+    "Use DQL to query and analyse logs at scale",
+    "Understand why Davis Security Score differs from CVSS and how to use it for prioritisation",
+    "Calculate and interpret SLO error budgets",
+    "Understand how Workflows enable automated remediation",
+    "Distinguish between Dynatrace Problems and Events",
+    "Configure log attributes for efficient filtering"
+  ],
+  "isPublished": true,
+  "isActive": true,
+  "createdAt": "2026-05-06T00:00:00.000Z",
+  "updatedAt": "2026-05-06T00:00:00.000Z"
+}

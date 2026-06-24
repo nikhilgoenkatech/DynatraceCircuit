@@ -1,0 +1,214 @@
+{
+  "templateVersion": "1.0.0",
+  "id": "throttle-expert-challenge",
+  "category": "SRE",
+  "order": 4,
+  "title": "Lap 4 — Expert Challenge",
+  "description": "The ultimate test. Advanced DQL, Davis AI, automation, and full-stack mastery.",
+  "difficulty": "expert",
+  "estimatedTime": 10,
+  "totalTimeLimit": 300,
+  "imagine": "You are the lead observability architect at a global fintech running thousands of microservices. A silent degradation is spreading across regions and your SLO burn rate is accelerating. The team is looking to you.",
+  "yourGoal": "Answer 5 expert-level questions that span DQL, Davis AI causal analysis, SLO error budgets, distributed tracing, and Dynatrace automation to resolve the incident before the burn rate breaches the 30-day budget.",
+  "tools": "Dynatrace Platform · DQL (Grail) · Davis AI · SLO Dashboards · Dynatrace Workflows",
+  "note": "This lap assumes hands-on experience with Dynatrace. Questions require reasoning across multiple observability dimensions simultaneously — no single signal tells the whole story.",
+  "story": {
+    "introduction": "At expert level, the problem is never just one thing. A spike in error rate is a symptom. Davis AI surfaces the cause. DQL lets you confirm the blast radius. Automation remediates before the page even fires.",
+    "context": "You have full access to the Dynatrace platform. Every answer requires you to think like an SRE who owns the entire stack — from infrastructure anomalies to business impact."
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "title": "DQL Aggregation",
+      "content": "You need to find the top 3 services by average response time in the last 15 minutes using DQL. Which clause correctly limits and sorts the result?",
+      "options": [
+        {
+          "id": "a",
+          "text": "| sort avg(duration) desc | limit 3",
+          "isCorrect": true,
+          "explanation": "Correct! In DQL you pipe sort before limit. sort avg(duration) desc orders highest first, then limit 3 takes the top three."
+        },
+        {
+          "id": "b",
+          "text": "| limit 3 | sort avg(duration) desc",
+          "isCorrect": false,
+          "explanation": "Limiting before sorting returns an arbitrary 3 rows and then sorts only those — not the global top 3."
+        },
+        {
+          "id": "c",
+          "text": "| top 3 by avg(duration)",
+          "isCorrect": false,
+          "explanation": "DQL does not have a 'top N by' syntax. Use sort + limit."
+        },
+        {
+          "id": "d",
+          "text": "| order by avg(duration) desc fetch first 3 rows only",
+          "isCorrect": false,
+          "explanation": "That is SQL syntax. DQL uses sort and limit, not ORDER BY / FETCH FIRST."
+        }
+      ],
+      "correctAnswer": "a",
+      "explanation": "DQL pipeline: summarize → sort → limit. Always sort before limiting to guarantee you get the global top N.",
+      "points": 200,
+      "hints": [
+        "Think of DQL as a pipeline — each step transforms the result of the previous one. Order matters."
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "title": "Davis AI Root Cause",
+      "content": "Davis AI opens a problem card linking a memory leak on a host to an increase in response times across 4 downstream services. What is the correct interpretation?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The 4 services are the root cause — they are consuming too much memory",
+          "isCorrect": false,
+          "explanation": "Davis identified the host memory leak as the root cause, not the downstream services."
+        },
+        {
+          "id": "b",
+          "text": "The memory leak on the host is the root cause; the service degradations are causal impacts",
+          "isCorrect": true,
+          "explanation": "Correct! Davis AI performs causal analysis — it links the upstream root cause (memory leak) to downstream symptoms (response time increases) automatically."
+        },
+        {
+          "id": "c",
+          "text": "All 5 entities are equally responsible and must be fixed simultaneously",
+          "isCorrect": false,
+          "explanation": "Davis establishes causality, not equal blame. Fix the root cause and the downstream symptoms typically resolve."
+        },
+        {
+          "id": "d",
+          "text": "The problem card is cosmetic — you must manually correlate events to find the real cause",
+          "isCorrect": false,
+          "explanation": "Davis AI performs automated causal analysis. The problem card reflects real causal relationships, not just correlation."
+        }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Davis AI distinguishes root causes from causal impacts. The entity with the anomaly that triggered all others is the root cause — here, the memory leak on the host.",
+      "points": 200,
+      "hints": [
+        "Look at which entity Davis flagged first in the timeline and which others it linked as 'impacted by'."
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "multiple-choice",
+      "title": "SLO Error Budget",
+      "content": "Your payment service has a 99.9% availability SLO over a 30-day window. It has been down for 35 minutes this month. Approximately how much error budget remains?",
+      "options": [
+        {
+          "id": "a",
+          "text": "About 8 minutes remaining",
+          "isCorrect": false,
+          "explanation": "99.9% over 30 days = 43.2 minutes budget. 43.2 − 35 = 8.2 minutes. Close — but check the calculation below."
+        },
+        {
+          "id": "b",
+          "text": "About 43 minutes remaining",
+          "isCorrect": false,
+          "explanation": "43 minutes is the full budget. You have already consumed 35 of those minutes."
+        },
+        {
+          "id": "c",
+          "text": "About 8 minutes remaining",
+          "isCorrect": true,
+          "explanation": "Correct! 30 days = 43,200 minutes. 0.1% of that = 43.2 minutes budget. 43.2 − 35 = 8.2 minutes left."
+        },
+        {
+          "id": "d",
+          "text": "The budget is already exhausted",
+          "isCorrect": false,
+          "explanation": "35 minutes consumed out of a 43.2-minute budget — you still have ~8 minutes before the SLO is breached."
+        }
+      ],
+      "correctAnswer": "c",
+      "explanation": "99.9% SLO over 30 days allows 0.1% downtime = 43.2 minutes. With 35 minutes consumed, ~8 minutes of error budget remain.",
+      "points": 200,
+      "hints": [
+        "Error budget = (1 − SLO target) × window duration. Convert everything to the same unit first."
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "title": "Distributed Tracing",
+      "content": "A trace shows a 2-second span on the checkout service with a 1.8-second child span on the inventory service. Where is the bottleneck?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Checkout service — it owns the longest total span",
+          "isCorrect": false,
+          "explanation": "The checkout span includes the time waiting for inventory. Its own processing time is only 0.2 seconds."
+        },
+        {
+          "id": "b",
+          "text": "Inventory service — it consumes 1.8 of the 2 seconds",
+          "isCorrect": true,
+          "explanation": "Correct! The inventory child span accounts for 90% of the total request time. That is where the bottleneck lives."
+        },
+        {
+          "id": "c",
+          "text": "The network between the two services",
+          "isCorrect": false,
+          "explanation": "Network latency would appear as a gap between spans. The 1.8s is within the inventory span itself."
+        },
+        {
+          "id": "d",
+          "text": "Cannot tell without CPU metrics",
+          "isCorrect": false,
+          "explanation": "The trace gives you enough information. Span duration directly shows where time is being spent."
+        }
+      ],
+      "correctAnswer": "b",
+      "explanation": "In distributed tracing, the child span with the largest duration relative to the parent is the bottleneck. 1.8s out of 2s = 90% of time in inventory.",
+      "points": 200,
+      "hints": [
+        "Calculate what percentage of the parent span each child span consumes — the highest percentage is your bottleneck."
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "title": "Dynatrace Workflows",
+      "content": "You want to automatically restart a Kubernetes pod when Davis AI opens a problem for that specific service. Which Dynatrace capability enables this?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Dynatrace Dashboards with threshold alerts",
+          "isCorrect": false,
+          "explanation": "Dashboards visualise data but cannot trigger automated remediation actions."
+        },
+        {
+          "id": "b",
+          "text": "Dynatrace Workflows triggered by a Davis AI problem event",
+          "isCorrect": true,
+          "explanation": "Correct! Dynatrace Workflows can be triggered by Davis AI problem events and can execute actions — including calling the Kubernetes API to restart a pod."
+        },
+        {
+          "id": "c",
+          "text": "A custom metric alert sent to PagerDuty",
+          "isCorrect": false,
+          "explanation": "PagerDuty notifies a human — it does not automatically restart the pod. You still need a human in the loop."
+        },
+        {
+          "id": "d",
+          "text": "Dynatrace SLO burn rate alert",
+          "isCorrect": false,
+          "explanation": "SLO alerts notify you when a budget is burning — they do not execute remediation actions automatically."
+        }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Dynatrace Workflows connect Davis AI events to automated actions. A problem-triggered workflow can call external APIs, run scripts, or interact with orchestration platforms like Kubernetes.",
+      "points": 200,
+      "hints": [
+        "Which Dynatrace feature is specifically designed to automate actions in response to platform events?"
+      ]
+    }
+  ],
+  "isPublished": true,
+  "isActive": true,
+  "isBuiltIn": false
+}

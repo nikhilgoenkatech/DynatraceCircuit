@@ -1,0 +1,215 @@
+{
+  "templateVersion": "1.0.0",
+  "id": "crawl-getting-started",
+  "category": "BI",
+  "order": 1,
+  "title": "Lap 1 \u2014 Getting Started with Dynatrace",
+  "description": "Your first lap. Learn what observability means, where to find help, and how Dynatrace helps with Observability.",
+  "difficulty": "beginner",
+  "estimatedTime": 5,
+  "totalTimeLimit": 150,
+  "imagine": "Your team has just migrated to Dynatrace. Before the race starts, every good crew member needs to know where the tools are.",
+  "yourGoal": "Complete 5 questions to earn your paddock pass. No prior Dynatrace experience needed \u2014 this is your starting grid.",
+  "tools": "Dynatrace Platform \u00b7 Dynatrace Docs (docs.dynatrace.com) \u00b7 Dynatrace Support (support.dynatrace.com)",
+  "note": "These questions are designed to help you build confidence and familiarity with Dynatrace as you move away from legacy monitoring tools.",
+  "story": {
+    "introduction": "Teams moving from legacy tools often ask 'Where do I go for help?' or 'How is Dynatrace different from what we used before?' This scenario answers both.",
+    "context": "Dynatrace goes beyond static monitoring \u2014 it maps every dependency in your environment, uses AI to find root causes automatically, and surfaces answers before your customers notice a problem."
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "title": "What does Observability mean?",
+      "content": "You have heard the word 'observability' used a lot since Dynatrace arrived. Which of the following best describes what it means?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Watching CPU, memory, and disk on servers \u2014 in a Dashboard",
+          "isCorrect": false,
+          "explanation": "That is traditional infrastructure monitoring. Observability is a broader concept covering the entire system."
+        },
+        {
+          "id": "b",
+          "text": "The ability to understand the internal state of a system from the data it produces \u2014 what happened, why, and where",
+          "isCorrect": true,
+          "explanation": "Correct! Observability means you can ask any question about your system and get an answer from the data it emits."
+        },
+        {
+          "id": "c",
+          "text": "Having a fleet of dashboards",
+          "isCorrect": false,
+          "explanation": "More dashboards does not equal more observability. You need the right signals and the ability to ask new questions."
+        },
+        {
+          "id": "d",
+          "text": "Watching logs scroll by in real time",
+          "isCorrect": false,
+          "explanation": "Logs are one input to observability, but on their own they do not give you the full picture."
+        }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Observability is the ability to ask any question about your system and get an answer from the data it produces \u2014 not just pre-defined metrics.",
+      "points": 100,
+      "hints": [
+        "Think beyond dashboards \u2014 observability is about understanding what happened and why, not just watching values change."
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "title": "The Three Pillars",
+      "content": "Observability is built on three types of telemetry data. Which combination makes up the three pillars?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Alerts, Dashboards, Reports",
+          "isCorrect": false,
+          "explanation": "These are outputs \u2014 presentations of data \u2014 not the underlying telemetry signals."
+        },
+        {
+          "id": "b",
+          "text": "CPU, Memory, Network",
+          "isCorrect": false,
+          "explanation": "These are types of metrics. Metrics are just one of the three pillars."
+        },
+        {
+          "id": "c",
+          "text": "Metrics, Logs, Traces",
+          "isCorrect": true,
+          "explanation": "Correct! Metrics answer 'how much?', logs answer 'what exactly happened?', and traces answer 'how did the request travel across services?' with security providing insights if your code is vulnerable."
+        },
+        {
+          "id": "d",
+          "text": "Services, Hosts, Applications",
+          "isCorrect": false,
+          "explanation": "These are the entities you observe, not the types of data you collect to observe them."
+        }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Metrics show trends, logs capture events in detail, and traces follow a request end-to-end across services. Dynatrace collects all three automatically.",
+      "points": 150,
+      "hints": [
+        "Think about the different questions your system data can answer: how much, what happened, and how requests flow through the system."
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "true-false",
+      "title": "Dynatrace is only for infrastructure",
+      "content": "Dynatrace only monitors infrastructure (servers and network) \u2014 not the applications running on top of them.",
+      "correctAnswer": "false",
+      "explanation": "False. Dynatrace provides full-stack observability \u2014 from the user's browser click, through every microservice and database call, all the way down to the host and container.",
+      "points": 50,
+      "hints": [
+        "Think about whether Dynatrace stops at servers, or follows a user request through applications and services."
+      ],
+      "options": [
+        {
+          "id": "true",
+          "text": "True",
+          "isCorrect": false
+        },
+        {
+          "id": "false",
+          "text": "False",
+          "isCorrect": true
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "multiple-choice",
+      "title": "Getting help with Dynatrace",
+      "content": "You are stuck while using Dynatrace and want to get help or guidance. Which of the following are valid ways to get support or self\u2011help for Dynatrace?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Go to help.dynatrace.com to read official Dynatrace documentation",
+          "isCorrect": false,
+          "explanation": "Correct resource, but this is only one of several valid help options."
+        },
+        {
+          "id": "b",
+          "text": "Go to support.dynatrace.com and create a support case",
+          "isCorrect": false,
+          "explanation": "Correct for product issues and bugs, but not the only way to get help."
+        },
+        {
+          "id": "c",
+          "text": "Use support.dynatrace.com to open a chat with Dynatrace Support",
+          "isCorrect": false,
+          "explanation": "Chat is available for many accounts, but it is not the only help channel."
+        },
+        {
+          "id": "d",
+          "text": "All of the above",
+          "isCorrect": true,
+          "explanation": "Correct. Dynatrace offers official documentation, support cases, and live support options depending on your need."
+        }
+      ],
+      "correctAnswer": "d",
+      "explanation": "Dynatrace supports a self\u2011help\u2011first model. Official documentation (help.dynatrace.com) is ideal for learning and how\u2011to guidance, while support.dynatrace.com is used to raise cases or engage with support for product issues.",
+      "points": 100,
+      "hints": [
+        "Consider all the official ways Dynatrace helps users learn, troubleshoot, and get support."
+      ],
+      "actionButtons": [
+        {
+          "label": "Open Dynatrace Help",
+          "url": "https://help.dynatrace.com",
+          "variant": "emphasized",
+          "color": "primary"
+        },
+        {
+          "label": "Open Dynatrace Support",
+          "url": "https://support.dynatrace.com",
+          "variant": "emphasized"
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "true-false",
+      "title": "Davis AI finds root cause automatically",
+      "content": "Davis AI automatically analyses your environment, correlates events across your full stack, and identifies the root cause of problems \u2014 without you needing to manually dig through dashboards and logs.",
+      "correctAnswer": "true",
+      "explanation": "True. Davis AI is always on, continuously learning your baseline. The moment it detects an anomaly it runs causal analysis and surfaces the root cause \u2014 often before your customers notice.",
+      "points": 50,
+      "hints": [
+        "Think about whether Dynatrace requires manual correlation, or if AI assists by connecting signals automatically."
+      ],
+      "options": [
+        {
+          "id": "true",
+          "text": "True",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "False",
+          "isCorrect": false
+        }
+      ]
+    }
+  ],
+  "maxScore": 450,
+  "tags": [
+    "beginner",
+    "crawl",
+    "observability",
+    "getting-started",
+    "self-help",
+    "davis-ai"
+  ],
+  "learningObjectives": [
+    "Understand what observability means and how it differs from traditional monitoring",
+    "Name the three pillars of observability",
+    "Locate official Dynatrace documentation and support channels",
+    "Understand how Davis AI accelerates root-cause analysis"
+  ],
+  "isPublished": true,
+  "isActive": true,
+  "createdAt": "2026-05-06T00:00:00.000Z",
+  "updatedAt": "2026-05-06T00:00:00.000Z"
+}

@@ -1,0 +1,211 @@
+{
+  "templateVersion": "1.0.0",
+  "id": "walk-navigating-dynatrace",
+  "category": "CO",
+  "order": 2,
+  "title": "Lap 2 \u2014 Navigating Dynatrace",
+  "description": "You've had your first look at Dynatrace. Now let's drive it. Learn how Davis AI surfaces problems, how to read service health, and how to trace a slow request end to end.",
+  "difficulty": "intermediate",
+  "estimatedTime": 5,
+  "totalTimeLimit": 150,
+  "imagine": "Your team is live on Dynatrace. An alert just fired and you have been tasked to uncover the different signals. You need to know where to look, what the data is telling you, and how to act on it.",
+  "yourGoal": "Complete 5 questions to prove you can navigate Dynatrace under pressure. You'll need to find problems, read traces, and understand what Davis AI is telling you.",
+  "tools": "Dynatrace Platform \u00b7 Problems App \u00b7 Distributed Traces \u00b7 Service Flow",
+  "note": "These questions reflect real scenarios you will encounter in production. Use Dynatrace to find the answers where indicated.",
+  "story": {
+    "introduction": "You are no longer just getting started \u2014 you are driving. Dynatrace is live, OneAgent is deployed, and Davis AI has already detected your first problem.",
+    "context": "Understanding how to navigate from a problem card to a root cause is the single most valuable skill you can build in Dynatrace. This scenario walks you through that journey."
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple-choice",
+      "title": "Finding distributed traces",
+      "content": "You suspect that a slow user transaction is caused by a downstream dependency. Where in Dynatrace do you go to view an end\u2011to\u2011end breakdown of a single request across services?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Distributed Traces",
+          "isCorrect": true,
+          "explanation": "Correct! Distributed Traces show the full path of a single request across services, databases, and external calls, with timing for each step."
+        },
+        {
+          "id": "b",
+          "text": "The Problems app",
+          "isCorrect": false,
+          "explanation": "Problems provide a summary and root cause, but distributed traces are where you analyse individual request paths in detail."
+        },
+        {
+          "id": "c",
+          "text": "Metrics Explorer",
+          "isCorrect": false,
+          "explanation": "Metrics Explorer shows aggregated trends, not request\u2011level execution paths."
+        },
+        {
+          "id": "d",
+          "text": "The Log Viewer",
+          "isCorrect": false,
+          "explanation": "Logs provide textual details, but do not show request flow or timing relationships across services."
+        }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Distributed Traces are used to follow a single request end\u2011to\u2011end and understand exactly where time is spent, making them essential for diagnosing latency issues.",
+      "points": 100,
+      "hints": [
+        "Think about where you would see a single distibuted request path broken down step by step, rather than aggregated metrics."
+      ],
+      "actionButtons": [
+        {
+          "label": "Open Distributed Traces",
+          "url": "https://vpk89018.apps.dynatrace.com/ui/apps/dynatrace.distributedtracing/explorer",
+          "variant": "emphasized",
+          "color": "primary"
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "type": "multiple-choice",
+      "title": "What Smartscape tells you",
+      "content": "You open Smartscape for your environment. What does it show you that a traditional monitoring dashboard like FireScope cannot?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A live topology map showing how every process, service, host, and application connects to each other",
+          "isCorrect": true,
+          "explanation": "Correct! Smartscape is a real-time, auto-discovered dependency map. It shows you relationships FireScope never knew existed \u2014 and updates itself as your environment changes."
+        },
+        {
+          "id": "b",
+          "text": "A list of all open support tickets",
+          "isCorrect": false,
+          "explanation": "Support tickets are managed via support.dynatrace.com \u2014 Smartscape is a topology and dependency tool."
+        },
+        {
+          "id": "c",
+          "text": "Historical CPU and memory graphs",
+          "isCorrect": false,
+          "explanation": "Infrastructure metrics are available elsewhere in Dynatrace. Smartscape focuses on relationships between entities."
+        },
+        {
+          "id": "d",
+          "text": "A calendar of planned maintenance windows",
+          "isCorrect": false,
+          "explanation": "Maintenance windows are configured separately. Smartscape shows live topology."
+        }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Smartscape auto-discovers every entity in your environment and maps how they depend on each other. When a problem occurs, it uses this map to calculate blast radius and identify root cause.",
+      "points": 150,
+      "hints": [
+        "Think about what a 'map' of your environment would look like if it updated itself automatically."
+      ]
+    },
+    {
+      "id": "q3",
+      "type": "true-false",
+      "title": "Davis AI groups related events",
+      "content": "True or False: When multiple alerts fire at the same time due to the same underlying issue, Davis AI automatically groups them into a single problem instead of flooding you with individual alerts.",
+      "correctAnswer": "true",
+      "explanation": "True. This is one of Davis AI's most powerful features \u2014 it correlates related events using topology context, so one database outage creates one problem card, not 50 individual alerts.",
+      "points": 75,
+      "hints": [
+        "Consider how Dynatrace reduces alert noise during a widespread outage affecting many components."
+      ],
+      "options": [
+        {
+          "id": "true",
+          "text": "True",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "False",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "type": "true-false",
+      "title": "OneAgent auto-discovers new services",
+      "content": "True or False: When a new microservice is deployed on a host that already has OneAgent installed, Dynatrace automatically starts monitoring it \u2014 no additional configuration is required.",
+      "correctAnswer": "true",
+      "explanation": "True. OneAgent continuously monitors the host and automatically instruments any new process it finds. New services appear in Smartscape and the Services view within minutes of deployment.",
+      "points": 50,
+      "hints": [
+        "Think about if anything was configured by the team manually to get the current view."
+      ],
+      "options": [
+        {
+          "id": "true",
+          "text": "True",
+          "isCorrect": true
+        },
+        {
+          "id": "false",
+          "text": "False",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "type": "multiple-choice",
+      "title": "Problems vs Events",
+      "content": "Davis AI has opened a Problem. A colleague says 'I can see the deployment Event but no Problem'. What is the difference between a Dynatrace Problem and an Event?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Problems and Events are the same thing \u2014 just different names in different parts of the UI",
+          "isCorrect": false,
+          "explanation": "They are distinct concepts with different triggers, lifecycles, and purposes."
+        },
+        {
+          "id": "b",
+          "text": "An Event is a discrete occurrence (deployment, config change, alert threshold crossed). A Problem is Davis AI's assessment that something is actively impacting your users or services \u2014 it may correlate many Events",
+          "isCorrect": true,
+          "explanation": "Correct! Events are factual records of things that happened. Problems are Davis AI's conclusion that one or more events represent a real impact requiring investigation. One Problem can group dozens of Events."
+        },
+        {
+          "id": "c",
+          "text": "Events are only for infrastructure, Problems are only for applications",
+          "isCorrect": false,
+          "explanation": "Both Events and Problems can relate to any entity type \u2014 infrastructure, services, applications, or custom."
+        },
+        {
+          "id": "d",
+          "text": "Problems auto-close after 1 hour, Events are permanent",
+          "isCorrect": false,
+          "explanation": "Problems close automatically when Davis AI detects the underlying anomaly has resolved \u2014 not on a fixed timer."
+        }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Events are the raw signals; Problems are Davis AI's synthesis. A deployment Event does not create a Problem on its own \u2014 a Problem only opens if Davis AI detects that the deployment caused an anomaly affecting users or services.",
+      "points": 125,
+      "hints": [
+        "Ask yourself which represents raw signals, and which represents Dynatrace\u2019s conclusion about impact."
+      ]
+    }
+  ],
+  "maxScore": 500,
+  "tags": [
+    "intermediate",
+    "walk",
+    "problems",
+    "smartscape",
+    "distributed-tracing",
+    "davis-ai"
+  ],
+  "learningObjectives": [
+    "Locate and read active problems in the Dynatrace Problems app",
+    "Understand what Smartscape shows and why it matters",
+    "Identify the root cause service from a distributed trace waterfall",
+    "Understand how Davis AI groups related events into a single problem",
+    "Confirm whether a deployment caused a performance regression"
+  ],
+  "isPublished": true,
+  "isActive": true,
+  "createdAt": "2026-05-06T00:00:00.000Z",
+  "updatedAt": "2026-05-06T00:00:00.000Z"
+}
