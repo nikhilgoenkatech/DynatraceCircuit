@@ -11,28 +11,27 @@ This guide walks you through everything in order: deploying the app, configuring
 | Requirement | Details |
 |---|---|
 | Dynatrace Environment | SaaS, with admin access |
-| IAM permissions | `app-engine:apps:install`, `app-engine:apps:run` |
 | OAuth client scopes | `document:documents:read`, `document:documents:write`, `document:documents:admin` |
-| Node.js | v24 or later |
-| Distribution package | `adoptionday-v1.x.x.zip` (provided separately) |
+| Distribution package | `dynatrace-circuit.zip` (provided separately) |
 | Scenario files | `*.json` files (provided separately) |
 
 ---
 
 ## Step 1 — Deploy the App
+<img width="1773" height="369" alt="Upload_the_app" src="https://github.com/user-attachments/assets/c7dac555-03f6-44c0-8f79-caad1d7e401f" />
 
-The distribution package contains a pre-built app. You do not need to compile anything.
 
-**1.1** Unzip the distribution package:
+The distribution package contains a pre-built app. You do not need to compile, install, or run anything.
 
-```bash
-   1. unzip dynatrace-circuit.zip
-   2. cd dynatrace-circuit
-   3. npm install
-   4. npx dt-app deploy --skip-build --environment-url https://<tenant>.apps.dynatrace.com
-```
+**1.1** Log in to your Dynatrace environment
 
-The CLI will prompt you to authenticate via browser the first time. Once deployed, the app appears under **Apps** in your Dynatrace menu as **Dynatrace Circuit**.
+**1.2** In the left sidebar, navigate to **Hub**
+
+**1.3** Go to **Apps** → **Upload**
+
+**1.4** Select the provided `dynatrace-circuit.zip` file and upload it
+
+Once uploaded, the app appears under **Apps** in your Dynatrace menu as **Dynatrace Circuit**.
 
 ---
 
@@ -49,7 +48,51 @@ https://YOUR_ENV_ID.apps.dynatrace.com/ui/apps/my.totalservicemeltdown/admin
 
 ---
 
-## Step 3 — Configure Event Mode
+## Step 3 — Configure Branding
+
+> ⚠️ **Known issue in v2.4.110:** The branding settings currently fail to save with the error `Failed: Schema 'branding' not found for app version '2.4.110'`. This is a bug — the branding schema is not registered for this version of the app. The **Save Branding** button will not work until this is resolved in a future release. The rest of the admin panel (Event Mode, scenarios, etc.) is unaffected.
+
+The Branding section is in the Admin Panel above Event Mode Configuration. Once the bug is fixed, it will let you customise the following:
+
+### App Theme
+
+Choose the overall look, background, hero image, and ambient sound for the game. Available themes:
+
+| Theme | Description |
+|---|---|
+| 🏎 **Racing** | F1 circuit — the original Dynatrace Circuit experience |
+| 🚀 **Space** | Cosmic mission — explore the universe of observability |
+| 🏈 **Football** | Football-themed experience — kick off your observability journey |
+| 🦸 **Superhero** | Hero Academy — level up from sidekick to legend |
+| 🔍 **Detective Mystery** | Crack clues, connect evidence, and solve the observability mystery |
+| 🧙 **Wizard Academy** | Master observability spells and rise from initiate to archmage |
+| 🕵️ **Secret Agent** | Accept the briefing, infiltrate complexity, and complete the mission |
+
+> For a secret-agent themed demo, select **Secret Agent**.
+
+### Colours
+
+Override the theme's default colours with your own brand colours:
+
+| Field | What it controls |
+|---|---|
+| **Primary colour** | Accent colour and CTA buttons (e.g. `#00b4d8`) |
+| **Background colour** | Header and Landing page background (e.g. `#1e2327`) |
+
+Leave either field empty to use the theme's default colour.
+
+### Event Name & Tagline
+
+| Field | What it controls |
+|---|---|
+| **Event name** | Replaces "Total Service Meltdown" in all headings — set this to your customer's event name |
+| **Tagline** | Shown below the event name on the Landing and Home screens (e.g. `Powered by Dynatrace · Adoption Day`) |
+
+Click **Save Branding** to apply — once the schema bug above is resolved.
+
+---
+
+## Step 4 — Configure Event Mode
 
 Event Mode controls user registration, score tracking, and what players see. Configure this **before** inviting players.
 
@@ -390,8 +433,26 @@ Open **Dynatrace Notebooks** from the Apps menu and paste any query above into a
 **Leaderboard is not visible to players**
 → Confirm **Hide Leaderboard Tab** is OFF in Event Mode Configuration → **Save Configuration**
 
-**App not loading after deploy**
-→ Confirm `environmentUrl` in `app.config.json` has no trailing slash and matches your environment exactly
+**App not loading after upload**
+→ Refresh the Apps menu — it may take a minute to appear after upload
 
-**Deploy fails with HTTP 403**
-→ Your Dynatrace user needs `app-engine:apps:install` and `app-engine:apps:run` IAM policies assigned
+**Upload fails in Hub**
+→ Confirm your Dynatrace user has admin access and the `app-engine:apps:install` IAM policy assigned
+
+---
+
+## Credits
+
+Dynatrace Circuit was originally created by **Nikhil Goenka** ([@nikhilgoenkatech](https://github.com/nikhilgoenkatech)).
+
+The original application, architecture, scenario engine, leaderboard, and BizEvent integration are his work. This distribution builds on that foundation with enhancements to the admin panel, document access management, and scenario tooling.
+
+If you find the app useful, consider starring the original repository:
+[github.com/nikhilgoenkatech/adoptionday](https://github.com/nikhilgoenkatech/adoptionday)
+
+---
+
+## Questions or Issues?
+
+For issues specific to this distribution, contact the team.
+For issues with the core application, raise an issue at [github.com/nikhilgoenkatech/adoptionday](https://github.com/nikhilgoenkatech/adoptionday).
